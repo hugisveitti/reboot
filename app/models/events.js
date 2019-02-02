@@ -5,14 +5,16 @@ var Schema = mongoose.Schema;
 var eventsSchema = new Schema({
     title: String,
     description: String,
-    date: Date,
+    date: String,
     tags:[{tag: String}],
     venue:String,
-    coordinates:[{x:Number, y:Number}],
+    lng:String,
+    lat:String,
     duration:String,
     image:String,
     price:String,
-    
+
+
 }, {collection: 'events'});
 
 const Events = mongoose.model('events', eventsSchema);

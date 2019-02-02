@@ -4,6 +4,6 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 //connect mongo
-mongoose.connect('mongodb:<hugi>:<hugibesti123>@ds052968.mlab.com:52968/reboot', {useNewUrlParser: true})
+mongoose.connect('mongodb://hugi123:hugibesti123@ds052968.mlab.com:52968/reboot', {useNewUrlParser: true})
 .then(() => console.log('Mongodb connected'))
 .catch((err) => console.log(err));

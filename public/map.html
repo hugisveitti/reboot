@@ -36,5 +36,27 @@
              });
            }
 
+
+           fetch('/allevents')
+               .then(res => res.json())
+               .then(events => {
+                   console.log(events);
+                   events.forEach((event) => {
+                       addMarker(event);
+                   });
+               });
+
+            function addMarker(ev){
+                console.log(parseFloat(ev.lat));
+                console.log(parseFloat(ev.lng));
+                console.log(ev.title)
+                var latLng = {lng: parseFloat(ev.lat), lat:parseFloat(ev.lng)};
+                var marker = new google.maps.Marker({
+                    position: latLng,
+                    map:map,
+                    title: ev.title
+                })
+            }
+
          </script>
 </html>
