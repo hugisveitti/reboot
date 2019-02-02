@@ -1,53 +1,9 @@
-var Connection = require('tedious').Connection;
-var Request = require('tedious').Request;
+const mongoose = require('mongoose');
 
-// Create connection to database
-var config =
-{
-    userName: 'jon', // update me
-    password: 'hugi123!', // update me
-    server: 'reboot.database.windows.net', // update me
-    options:
-    {
-        database: 'your_database', //update me
-        encrypt: true
-    }
-}
-var connection = new Connection(config);
+// Map global promise
+mongoose.Promise = global.Promise;
 
-// Attempt to connect and execute queries if connection goes through
-connection.on('connect', function(err)
-    {
-        if (err)
-        {
-            console.log(err)
-        }
-        else
-        {
-            queryDatabase()
-        }
-    }
-);
-
-function queryDatabase()
-{
-    console.log('Reading rows from the Table...');
-
-    // Read all rows from table
-    var request = new Request(
-        "SELECT TOP 20 pc.Name as CategoryName, p.name as ProductName FROM [SalesLT].[ProductCategory] pc "
-            + "JOIN [SalesLT].[Product] p ON pc.productcategoryid = p.productcategoryid",
-        function(err, rowCount, rows)
-        {
-            console.log(rowCount + ' row(s) returned');
-            process.exit();
-        }
-    );
-
-    request.on('row', function(columns) {
-        columns.forEach(function(column) {
-            console.log("%s\t%s", column.metadata.colName, column.value);
-        });
-    });
-    connection.execSql(request);
-}
+//connect mongo
+mongoose.connect('mongodb:<hugi>:<hugibesti123>@ds052968.mlab.com:52968/reboot', {useNewUrlParser: true})
+.then(() => console.log('Mongodb connected'))
+.catch((err) => console.log(err));
