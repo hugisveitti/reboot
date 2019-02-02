@@ -9,7 +9,7 @@
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
       #map {
-        height: 100%;
+        height: 50%;
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
@@ -27,22 +27,28 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARkgGYzmI6y6CJoiDsIeEd5bc6s3r3_QI&callback=initMap"
      async defer></script>
      <script>
-           var map;
+           var map,directionsService,directionsDisplay;
+           var currLatLng;
            function initMap() {
+               directionsService = new google.maps.DirectionsService();
+               directionsDisplay = new google.maps.DirectionsRenderer();
                console.log("init")
                map = new google.maps.Map(document.getElementById('map'), {
                center: {lat: 64.13, lng: -21.9},
-               zoom: 8
+               zoom: 12
              });
+             directionsDisplay.setMap(map);
              fetchMarkers();
+             getCurrLoction();
            }
 
         function fetchMarkers(){
             fetch('/allevents')
                 .then(res => res.json())
                 .then(events => {
-                    console.log(events);
+                    // console.log(events);
                     events.forEach((event) => {
+                        console.log(event)
                         addMarker(event);
                     });
                 });
@@ -58,8 +64,68 @@
                     position: latLng,
                     map:map,
                     title: ev.title
-                })
+                });
+                new google.maps.event.trigger(marker, "click");
+                 marker.addListener("click", () => wayPoint(latLng));
+
             }
+
+            function wayPoint(latLng){
+
+                console.log(latLng)
+                var dirReq = {
+                     origin :currLatLng,
+                     destination: latLng,
+                     travelMode: "WALKING",
+                }
+                directionsService.route(dirReq, function(result, status) {
+                if (status == 'OK') {
+                    console.log("ok")
+                  directionsDisplay.setDirections(result);
+                  console.log(directionsDisplay);
+              } else {
+                  console.log("error dir")
+              }
+              });
+            }
+
+
+
+
+
+            function getCurrLoction(){
+                var infoWindow = new google.maps.InfoWindow;
+
+                    // Try HTML5 geolocation.
+                    if (navigator.geolocation) {
+                      navigator.geolocation.getCurrentPosition(function(position) {
+                        var pos = {
+                          lat: position.coords.latitude,
+                          lng: position.coords.longitude
+                        };
+                        console.log(pos)
+                        currLatLng = pos;
+                        infoWindow.setPosition(pos);
+                        infoWindow.setContent('Your location.');
+                        infoWindow.open(map);
+                        map.setCenter(pos);
+                      }, function() {
+                        handleLocationError(true, infoWindow, map.getCenter());
+                      });
+                    } else {
+                      // Browser doesn't support Geolocation
+                      handleLocationError(false, infoWindow, map.getCenter());
+                    }
+            }
+
+
+              function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+                infoWindow.setPosition(pos);
+                infoWindow.setContent(browserHasGeolocation ?
+                                      'Error: The Geolocation service failed.' :
+                                      'Error: Your browser doesn\'t support geolocation.');
+                infoWindow.open(map);
+              }
 
          </script>
 </html>
