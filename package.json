@@ -1,0 +1,19 @@
+{
+  "name": "reboot",
+  "version": "1.0.0",
+  "description": "REBOOT",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hugisveitti/reboot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hugisveitti/reboot/issues"
+  },
+  "homepage": "https://github.com/hugisveitti/reboot#readme"
+}
