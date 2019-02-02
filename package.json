@@ -15,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/hugisveitti/reboot/issues"
   },
-  "homepage": "https://github.com/hugisveitti/reboot#readme"
+  "homepage": "https://github.com/hugisveitti/reboot#readme",
+  "dependencies": {
+    "async": "^2.6.1",
+    "azure": "^2.3.1-preview",
+    "azure-storage": "^2.10.2",
+    "express": "^4.16.4",
+    "tedious": "^4.1.3"
+  }
 }
