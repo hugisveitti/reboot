@@ -11,9 +11,10 @@ var eventsSchema = new Schema({
     lng:String,
     lat:String,
     duration:String,
+    
     image:String,
     price:String,
-
+    startTime:String,
 
 }, {collection: 'events'});
 
