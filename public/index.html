@@ -23,8 +23,8 @@
       <div id="slide-out" class="sidenav light-blue lighten-1">
         <h3 class = 'nav_title'> Thor tour guide </h3>
         <img class = 'nav_img' src = "./images/viking.gif">
-        <div id="chatbot">
-          <p class='nav_message left'> Hello. What would you like to do?</p> 
+        <div class = 'nav_chat' id="chatbot">
+          <p class='nav_message left'> Hello. What would you like to do?</p>
         </div>
         <span class="nav__inputs">
           <input class='nav__input' type="text" id="message">
@@ -198,7 +198,7 @@
                 pbot.innerHTML = botText;
                 output.appendChild(pbot);
                 output.innerHTML += "<br>";
-
+                output.scrollTop = output.scrollHeight
                 // setTimeout(() => {
                 //
                 // }, 300);
@@ -208,6 +208,7 @@
                     pbot.innerHTML = "Would you like to see something else?";
                     output.appendChild(pbot);
                     output.innerHTML += "<br>";
+                    output.scrollTop = output.scrollHeight
                 },2000);
 
 
