@@ -44,3 +44,13 @@
   display: inline-block;
   margin: 0 10px;
 }
+
+.nav_img {
+  display: block;
+  margin: 0 auto;
+}
+
+.nav_title {
+  display: inline-block;
+  margin: 15px 10px;
+}
