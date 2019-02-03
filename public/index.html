@@ -9,10 +9,11 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </head>
 <body>
   <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Rvk2Do</a>
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">rvk2do</a>
       <ul class="right hide-on-med-and-down">
         <li><a href="#">Navbar Link</a></li>
       </ul>
@@ -28,66 +29,9 @@
 
       <!--   Icon Section   -->
       <div class="row">
-        <div class="col push-s1 s10 m4">
-          <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="./images/background.jpg">
-            </div>
-            <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-              <p><a href="#">This is a link</a></p>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-              <p>Here is some more information about this product that is only revealed once clicked on.</p>
-            </div>
-          </div>
+
         </div>
-        <div class="col push-s1 s10 m4">
-          <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="./images/background.jpg">
-            </div>
-            <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-              <p><a href="#">This is a link</a></p>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-              <p>Here is some more information about this product that is only revealed once clicked on.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col push-s1 s10 m4">
-          <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="./images/background.jpg">
-            </div>
-            <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-              <p><a href="#">This is a link</a></p>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-              <p>Here is some more information about this product that is only revealed once clicked on.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col push-s1 s10 m4">
-          <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="./images/background.jpg">
-            </div>
-            <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-              <p><a href="#">This is a link</a></p>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-              <p>Here is some more information about this product that is only revealed once clicked on.</p>
-            </div>
-          </div>
-        </div>
+
 
     </div>
     <br><br>
@@ -98,6 +42,76 @@
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchMarkers()
+    });
+     function fetchMarkers(){
+         fetch('/allevents')
+             .then(res => res.json())
+             .then(events => {
+                 console.log(events);
+                 events.forEach((event) => {
+                     addCard(event);
+                 });
+             });
+     }
+     function el(name, classes, ...childrens) {
+       const element = document.createElement(name);
+       if (Array.isArray(classes)) {
+         classes.forEach((classChild) => {
+           element.classList.add(classChild);
+         });
+       } else if (classes) {
+         element.classList.add(classes);
+       }
+       let children;
+       if (Array.isArray(childrens[0])) {
+         [children] = childrens;
+       } else {
+         children = childrens;
+       }
+       if (Array.isArray(children)) {
+         children.forEach((child) => {
+           if (typeof child === 'string') {
+             element.appendChild(document.createTextNode(child));
+           } else if (child) {
+             element.appendChild(child);
+           }
+         });
+       }
+       return element;
+     }
 
+         function addCard(ev){
+           const container = document.querySelector('.row');
+           const thumbElement = el('img', 'activator', '');
+           thumbElement.src = ev.image;
+           const image = el('div',['card-image', 'waves-effect', 'waves-block', 'waves-light'],thumbElement);
+
+           const day = el('div','card-header-day','18')
+           const month = el('div','card-header-day','may')
+           const date = el('div',['light-blue','card-header-date'],[day,month])
+
+           const spanner = el('span',['card-title','activator','grey-text', 'text-darken-4'],ev.title)
+
+           const icon = el('i',['fas', 'fa-dollar-sign','card-extra-icon'],'')
+           if (ev.price==''){
+             ev.price = 'Free'
+           }
+           const per2 = el('p','card-extra-text',ev.price)
+           const icon2 = el('i',['far', 'fa-clock','card-extra-icon'],'')
+           const per3 = el('p','card-extra-text',ev.duration)
+           const auka =  el('div','card-extra',[icon,per2,icon2,per3])
+           const content = el('div','card-content',[spanner,auka]);
+           const spanner2 = el('span',['card-title','activator','grey-text', 'text-darken-4'],ev.title)
+           const per = el('p','',ev.description)
+           const reveal = el('div','card-reveal',[spanner2,per]);
+           const card = el('div','card',[image,date,content,reveal]);
+           const col = el('div',['col', 'push-s1', 's10', 'm4'],card);
+           container.appendChild(card)
+         }
+
+      </script>
   </body>
 </html>

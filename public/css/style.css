@@ -12,3 +12,35 @@
 .icon-block .material-icons {
 	font-size: inherit;
 }
+
+.card-header-date {
+    float: right;
+    margin: 20px 20px 0 0;
+    border-radius: 50%;
+    font-weight: bold;
+    padding: 12px 12px;
+    line-height: 15px;
+    background-color: blue;
+    z-index: 1;
+}
+
+.card-header-date-day {
+    font-size: 18px;
+}
+
+.card-header-date-month {
+    font-size: 11px;
+}
+
+.card-extra-icon {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.card-extra-text {
+  width: auto;
+  display: inline-block;
+  margin: 0 10px;
+}
