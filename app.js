@@ -15,6 +15,8 @@ app.use(bodyParser.urlencoded({
 require('./app/get.js')(app);
 require('./app/post.js')(app);
 
-app.listen(3000, () => {
-    console.log("listening on port 3000");
+var port = process.env.PORT || 1337;
+
+app.listen(port, () => {
+    console.log("listening on port " + port);
 });
