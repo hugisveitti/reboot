@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="icon" href="./images/favicon.ico" type="image/gif" sizes="16x16">
 </head>
 <body>
   <nav class="light-blue lighten-1" role="navigation">
@@ -54,6 +55,9 @@
     document.addEventListener('DOMContentLoaded', () => {
       fetchMarkers()
     });
+    var allEvents = [];
+    var histEvents = [];
+    var concertEvents = [];
      function fetchMarkers(){
          fetch('/allevents')
              .then(res => res.json())
@@ -62,6 +66,10 @@
                  events.forEach((event) => {
                      addCard(event);
                  });
+                 allEvents = events;
+             }).then(() => {
+                 getHistEvents();
+                 getConcertEvents();
              });
      }
      function el(name, classes, ...childrens) {
@@ -93,7 +101,9 @@
 
 
 
+
          function addCard(ev){
+
            const container = document.querySelector('.row');
            const thumbElement = el('img', 'activator', '');
            thumbElement.src = ev.image;
@@ -126,6 +136,8 @@
       <script>
         const button = document.getElementById('ask');
         button.addEventListener('click', function(e) {
+            const container = document.querySelector('.row');
+
           const input = document.getElementById('message');
           var data = {
             message: input.value
@@ -141,11 +153,69 @@
             .then((response) => {
               const output = document.getElementById('chatbot');
               var data = JSON.stringify(response);
-              output.innerHTML += response.topScoringIntent.intent;
+               output.innerHTML = "";
+              output.innerHTML = "We found something you like!";
               console.log('Success:', data)
+                container.innerHTML = "";
+                console.log(data.topScoringIntent);
+                console.log()
+                console.log(response.topScoringIntent.intent);
+
+                var resInd = response.topScoringIntent.intent;
+                if(resInd = "None"){
+                    output.innerHTML = "";
+                    output.innerHTML = "Sorry I could not find anything you want";
+                }
+                if(resInd == "concerts"){
+                    console.log("concerts add to card");
+                    console.log(concertEvents);
+                    for(var i=0; i<concertEvents.length; i++){
+                        addCard(concertEvents[i]);
+                    }
+                } else {
+                    for(var i=0; i<histEvents.length; i++){
+                        addCard(histEvents[i]);
+                    }
+                }
+
             })
             .catch(error => console.error('Error:', error));
         });
+
+
+
+         function getHistEvents(){
+             for(var i=0;i<allEvents.length;i++){
+                 var tags = allEvents[i].tags;
+
+                 if(tags != null){
+                     for(var j=0; j<tags.length; j++){
+
+                         if(tags[j].tag == "historical"){
+                             histEvents.push(allEvents[i]);
+                         }
+                     }
+                 }
+             }
+
+         }
+
+         function getConcertEvents(){
+             for(var i=0;i<allEvents.length;i++){
+                 var tags = allEvents[i].tags;
+                 console.log(tags);
+
+                 if(tags != null){
+                     for(var j=0; j<tags.length; j++){
+                         if(tags[j].tag == "concert"){
+                             concertEvents.push(allEvents[i]);
+                         }
+                     }
+                 }
+             }
+             console.log("concenrt")
+             console.log(concertEvents)
+         }
 
       </script>
   </body>
