@@ -37,6 +37,59 @@
         .catch(error => console.error('Error:', error));
     });
 
+    var allEvents = [];
+    var histEvents = [];
+    var concertEvents = [];
+    getEvents();
+ function getEvents(){
+     fetch('/allevents')
+         .then(res => res.json())
+         .then(events => {
+             console.log(events);
+              allEvents = events;
+              console.log()
+                console.log(allEvents);
+
+         }).then(() => {
+             getHistEvents();
+             getConcertEvents();
+         });
+
+ }
+
+ function getHistEvents(){
+     for(var i=0;i<allEvents.length;i++){
+         var tags = allEvents[i].tags;
+         console.log(tags);
+         if(tags != null){
+             for(var j=0; j<tags.length; j++){
+
+                 if(tags[j].tag == "historical"){
+                     histEvents.push(allEvents[i]);
+                 }
+             }
+         }
+     }
+     console.log("hist")
+     console.log(histEvents)
+ }
+
+ function getConcertEvents(){
+     for(var i=0;i<allEvents.length;i++){
+         var tags = allEvents[i].tags;
+         console.log(tags);
+         if(tags != null){
+             for(var j=0; j<tags.length; j++){
+                 if(tags[j].tag == "concert"){
+                     concertEvents.push(allEvents[i]);
+                 }
+             }
+         }
+     }
+     console.log("concenrt")
+     console.log(concertEvents)
+ }
+
   </script>
 </body>
 
