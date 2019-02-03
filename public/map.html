@@ -20,6 +20,18 @@
     </style>
 </head>
 <body>
+  <nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">rvk2do</a>
+      <ul class="right ">
+        <li><a href="../"><i class='far fa-window-restore'></i></a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="sidenav">
+        <li><a href="#">Navbar Link</a></li>
+      </ul>
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
     <h1>Event map</h1>
     <div id="map"></div>
 </body>
@@ -107,7 +119,6 @@
                         currLatLng = pos;
                         infoWindow.setPosition(pos);
                         infoWindow.setContent('Your location.');
-                        infoWindow.open(map);
                         map.setCenter(pos);
                       }, function() {
                         handleLocationError(true, infoWindow, map.getCenter());
@@ -128,4 +139,8 @@
               }
 
          </script>
+         <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+         <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
 </html>
