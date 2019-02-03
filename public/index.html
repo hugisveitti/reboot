@@ -25,6 +25,7 @@
         <img class = 'nav_img' src = "./images/viking.gif">
         <div id="chatbot" class = 'nav_chat'>
           <p class="nav_message left"> Hello. What would you like to do? <p>
+          <br>
         </div>
         <span class="nav__inputs">
           <input class='nav__input' type="text" id="message">
@@ -178,14 +179,14 @@
 
 
                 var botText = "";
-                if(resInd == "concerts"){
+                if(resInd === "concerts"){
                     botText = "Here is something we think you will like.";
                     console.log("concerts add to card");
                     console.log(concertEvents);
                     for(var i=0; i<concertEvents.length; i++){
                         addCard(concertEvents[i]);
                     }
-                } else if(resInd = "None"){
+                } else if(resInd === "None"){
                     botText = "Sorry I could not find anything you want";
                 } else {
                     botText = "Here is something we think you will like."
@@ -193,10 +194,12 @@
                         addCard(histEvents[i]);
                     }
                 }
+
                 var pbot = el("span", ["left", "nav_message"]);
                 pbot.innerHTML = botText;
                 output.appendChild(pbot);
                 output.innerHTML += "<br>";
+                output.scrollTop = output.scrollHeight;
 
                 // setTimeout(() => {
                 //
@@ -207,6 +210,7 @@
                     pbot.innerHTML = "Would you like to see something else?";
                     output.appendChild(pbot);
                     output.innerHTML += "<br>";
+                    output.scrollTop = output.scrollHeight;
                 },2000);
 
 
