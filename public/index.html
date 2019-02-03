@@ -21,13 +21,9 @@
       <div id="slide-out" class="sidenav light-blue lighten-1">
         <h3 class = 'nav_title'> Thor tour guide </h3>
         <img class = 'nav_img' src = "./images/viking.gif">
-         <form class="">
-             <div class="input-field col s6">
-               <i class="material-icons prefix">mode_edit</i>
-               <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
-               <label for="icon_prefix2"> </label>
-             </div>
-         </form>
+        <input type="text" id="message">
+        <button id="ask">Ask</button>
+        <div id="chatbot"></div>
     </div>
       <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">chat_bubble_outline</i></a>
     </div>
@@ -121,6 +117,31 @@
            const col = el('div',['col', 'push-s1', 's10'],card);
            container.appendChild(col)
          }
+
+      </script>
+      <script>
+        const button = document.getElementById('ask');
+        button.addEventListener('click', function(e) {
+          const input = document.getElementById('message');
+          var data = {
+            message: input.value
+          };
+
+          fetch("/askbot", {
+              method: 'POST', // or 'PUT'
+              body: JSON.stringify(data), // data can be `string` or {object}!
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            }).then(res => res.json())
+            .then((response) => {
+              const output = document.getElementById('chatbot');
+              var data = JSON.stringify(response);
+              output.innerHTML += response.topScoringIntent.intent;
+              console.log('Success:', data)
+            })
+            .catch(error => console.error('Error:', error));
+        });
 
       </script>
   </body>
