@@ -19,10 +19,10 @@
         <li><a href="./map"><i class='fas fa-map-marked-alt'></i></a></li>
       </ul>
 
-      <ul id="slide-out" class="sidenav light-blue lighten-1">
-      <li><a href="#!">First Sidebar Link</a></li>
-      <li><a href="#!">Second Sidebar Link</a></li>
-    </ul>
+      <div id="slide-out" class="sidenav light-blue lighten-1">
+        <h3> Thor tour guide </h3>
+        <img src = "./images/viking.gif">
+    </div>
       <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">chat_bubble_outline</i></a>
     </div>
   </nav>
@@ -93,8 +93,8 @@
            thumbElement.src = ev.image;
            const image = el('div',['card-image', 'waves-effect', 'waves-block', 'waves-light'],thumbElement);
 
-           const day = el('div','card-header-day','18')
-           const month = el('div','card-header-day','may')
+           const day = el('div','card-header-day','4')
+           const month = el('div','card-header-day','feb')
            const date = el('div',['light-blue','lighten-1','card-header-date'],[day,month])
 
            const spanner = el('span',['card-title','activator','grey-text', 'text-darken-4'],ev.title)

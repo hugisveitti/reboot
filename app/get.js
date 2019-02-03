@@ -27,4 +27,8 @@ module.exports = function(app){
     app.get("/addevent", (req, res) => {
         res.sendFile(path.join(__dirname + './../public/addEvent.html'))
     })
+  
+    app.get("/chatbot", (req, res) => {
+        res.sendFile(path.join(__dirname + './../public/chatbot.html'))
+    })
 }

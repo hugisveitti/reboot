@@ -33,12 +33,6 @@
         <li><a href="../"><i class='far fa-window-restore'></i></a></li>
       </ul>
 
-      <ul id="slide-out" class="sidenav light-blue lighten-1">
-      <li><a href="#!">First Sidebar Link</a></li>
-      <li><a href="#!">Second Sidebar Link</a></li>
-    </ul>
-      <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">chat_bubble_outline</i></a>
-    </div>
   </nav>
 
 
@@ -185,7 +179,7 @@
                   const per = el('p','',ev.description)
                   const reveal = el('div','card-reveal',[spanner2,per]);
                   const card = el('div','card',[image,date,content,reveal]);
-                  const col = el('div',['col', 'push-s2', 's8'],card);
+                  const col = el('div',['col', 'push-s1', 's10','push-m2', 'm8'],card);
                   container.appendChild(col)
                 }
 
