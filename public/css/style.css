@@ -78,5 +78,12 @@
 }
 
 .nav_message{
-  size: 10px;
+  display: inline-block;
+  background-color: #D3D3D3;
+  color: black;
+  border-radius: 15px 50px 30px;
+  width: auto;
+  padding: 10px;
+  line-height: 20px;
+
 }
