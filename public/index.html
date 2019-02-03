@@ -6,9 +6,10 @@
   <title>Starter Template - Materialize</title>
 
   <!-- CSS  -->
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </head>
 <body>
@@ -21,9 +22,12 @@
       <div id="slide-out" class="sidenav light-blue lighten-1">
         <h3 class = 'nav_title'> Thor tour guide </h3>
         <img class = 'nav_img' src = "./images/viking.gif">
-        <input type="text" id="message">
-        <button id="ask">Ask</button>
-        <div id="chatbot"></div>
+        <div id="chatbot">
+        </div>
+        <span class="nav__inputs">
+          <input class='nav__input' type="text" id="message">
+          <button class="btn-floating btn-large red right nav__button" id = 'ask'><i class="material-icons">edit</i></button>
+        </span>
     </div>
       <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">chat_bubble_outline</i></a>
     </div>
