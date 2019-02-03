@@ -1,12 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Digital Reykjavik</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Starter Template - Materialize</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </head>
 <body>
-    
-</body>
+  <nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo center">rvk2do</a>
+      <ul class="right ">
+        <li><a href="./map"><i class='fas fa-map-marked-alt'></i></a></li>
+      </ul>
+
+      <ul id="slide-out" class="sidenav light-blue lighten-1">
+      <li><a href="#!">First Sidebar Link</a></li>
+      <li><a href="#!">Second Sidebar Link</a></li>
+    </ul>
+      <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">chat_bubble_outline</i></a>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="section">
+
+      <!--   Icon Section   -->
+      <div class="row">
+
+      </div>
+
+
+    </div>
+    <br><br>
+  </div>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchMarkers()
+    });
+     function fetchMarkers(){
+         fetch('/allevents')
+             .then(res => res.json())
+             .then(events => {
+                 console.log(events);
+                 events.forEach((event) => {
+                     addCard(event);
+                 });
+             });
+     }
+     function el(name, classes, ...childrens) {
+       const element = document.createElement(name);
+       if (Array.isArray(classes)) {
+         classes.forEach((classChild) => {
+           element.classList.add(classChild);
+         });
+       } else if (classes) {
+         element.classList.add(classes);
+       }
+       let children;
+       if (Array.isArray(childrens[0])) {
+         [children] = childrens;
+       } else {
+         children = childrens;
+       }
+       if (Array.isArray(children)) {
+         children.forEach((child) => {
+           if (typeof child === 'string') {
+             element.appendChild(document.createTextNode(child));
+           } else if (child) {
+             element.appendChild(child);
+           }
+         });
+       }
+       return element;
+     }
+
+
+
+         function addCard(ev){
+           const container = document.querySelector('.row');
+           const thumbElement = el('img', 'activator', '');
+           thumbElement.src = ev.image;
+           const image = el('div',['card-image', 'waves-effect', 'waves-block', 'waves-light'],thumbElement);
+
+           const day = el('div','card-header-day','18')
+           const month = el('div','card-header-day','may')
+           const date = el('div',['light-blue','lighten-1','card-header-date'],[day,month])
+
+           const spanner = el('span',['card-title','activator','grey-text', 'text-darken-4'],ev.title)
+
+           const icon = el('i',['fas', 'fa-dollar-sign','card-extra-icon'],'')
+           if (ev.price==''){
+             ev.price = 'Free'
+           }
+           const per2 = el('p','card-extra-text',ev.price)
+           const icon2 = el('i',['far', 'fa-clock','card-extra-icon'],'')
+           const per3 = el('p','card-extra-text',ev.duration)
+           const auka =  el('div','card-extra',[icon,per2,icon2,per3])
+           const content = el('div','card-content',[spanner,auka]);
+           const spanner2 = el('span',['card-title','activator','grey-text', 'text-darken-4'],ev.title)
+           const per = el('p','',ev.description)
+           const reveal = el('div','card-reveal',[spanner2,per]);
+           const card = el('div','card',[image,date,content,reveal]);
+           const col = el('div',['col', 'push-s1', 's10'],card);
+           container.appendChild(col)
+         }
+
+      </script>
+  </body>
 </html>
