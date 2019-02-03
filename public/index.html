@@ -83,6 +83,8 @@
        return element;
      }
 
+
+
          function addCard(ev){
            const container = document.querySelector('.row');
            const thumbElement = el('img', 'activator', '');
@@ -108,8 +110,8 @@
            const per = el('p','',ev.description)
            const reveal = el('div','card-reveal',[spanner2,per]);
            const card = el('div','card',[image,date,content,reveal]);
-           const col = el('div',['col', 'push-s1', 's10', 'm4'],card);
-           container.appendChild(card)
+           const col = el('div',['col', 'push-s1', 's10'],card);
+           container.appendChild(col)
          }
 
       </script>

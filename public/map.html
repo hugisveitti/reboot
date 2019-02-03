@@ -9,13 +9,20 @@
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
       #map {
-        height: 50%;
+        height: 100%;
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
         height: 100%;
         margin: 0;
         padding: 0;
+      }
+
+      .mappid {
+        height: 50%;
+        width: 80%;
+        margin-top: 10%;
+        margin-left: 10%;
       }
     </style>
 </head>
@@ -32,8 +39,21 @@
       <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>
   </nav>
-    <h1>Event map</h1>
-    <div id="map"></div>
+    <div class = 'mappid'>
+      <div id="map"></div>
+    </div>
+    <div class="container">
+      <div class="section">
+
+        <!--   Icon Section   -->
+        <div class="row">
+
+        </div>
+
+
+      </div>
+      <br><br>
+    </div>
 </body>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARkgGYzmI6y6CJoiDsIeEd5bc6s3r3_QI&callback=initMap"
@@ -78,13 +98,14 @@
                     title: ev.title
                 });
                 new google.maps.event.trigger(marker, "click");
-                 marker.addListener("click", () => wayPoint(latLng));
+                 marker.addListener("click", () => wayPoint(ev));
 
             }
 
-            function wayPoint(latLng){
-
-                console.log(latLng)
+            function wayPoint(ev){
+                var latLng = {lng: parseFloat(ev.lng), lat:parseFloat(ev.lat)};
+                console.log(latLng);
+                addCard(ev)
                 var dirReq = {
                      origin :currLatLng,
                      destination: latLng,
@@ -100,6 +121,69 @@
               }
               });
             }
+
+            function el(name, classes, ...childrens) {
+              const element = document.createElement(name);
+              if (Array.isArray(classes)) {
+                classes.forEach((classChild) => {
+                  element.classList.add(classChild);
+                });
+              } else if (classes) {
+                element.classList.add(classes);
+              }
+              let children;
+              if (Array.isArray(childrens[0])) {
+                [children] = childrens;
+              } else {
+                children = childrens;
+              }
+              if (Array.isArray(children)) {
+                children.forEach((child) => {
+                  if (typeof child === 'string') {
+                    element.appendChild(document.createTextNode(child));
+                  } else if (child) {
+                    element.appendChild(child);
+                  }
+                });
+              }
+              return element;
+            }
+            function empty(element) {
+               while (element.firstChild) {
+                 element.removeChild(element.firstChild);
+               }
+             }
+
+                function addCard(ev){
+                  const container = document.querySelector('.row');
+                  empty(container);
+                  const thumbElement = el('img', 'activator', '');
+                  thumbElement.src = ev.image;
+                  const image = el('div',['card-image', 'waves-effect', 'waves-block', 'waves-light'],thumbElement);
+
+                  const day = el('div','card-header-day','18')
+                  const month = el('div','card-header-day','may')
+                  const date = el('div',['light-blue','card-header-date'],[day,month])
+
+                  const spanner = el('span',['card-title','activator','grey-text', 'text-darken-4'],ev.title)
+
+                  const icon = el('i',['fas', 'fa-dollar-sign','card-extra-icon'],'')
+                  if (ev.price==''){
+                    ev.price = 'Free'
+                  }
+                  const per2 = el('p','card-extra-text',ev.price)
+                  const icon2 = el('i',['far', 'fa-clock','card-extra-icon'],'')
+                  const per3 = el('p','card-extra-text',ev.duration)
+                  const auka =  el('div','card-extra',[icon,per2,icon2,per3])
+                  const content = el('div','card-content',[spanner,auka]);
+                  const spanner2 = el('span',['card-title','activator','grey-text', 'text-darken-4'],ev.title)
+                  const per = el('p','',ev.description)
+                  const reveal = el('div','card-reveal',[spanner2,per]);
+                  const card = el('div','card',[image,date,content,reveal]);
+                  const col = el('div',['col', 'push-s2', 's8'],card);
+                  container.appendChild(col)
+                }
+
 
 
 
