@@ -24,6 +24,7 @@
         <h3 class = 'nav_title'> Thor tour guide </h3>
         <img class = 'nav_img' src = "./images/viking.gif">
         <div id="chatbot">
+          <p class='nav_message left'> Hello. What would you like to do?</p> 
         </div>
         <span class="nav__inputs">
           <input class='nav__input' type="text" id="message">
@@ -134,7 +135,6 @@
 
       </script>
       <script>
-        const recognition = new window.SpeechRecognition();
 
         const button = document.getElementById('ask');
         button.addEventListener('click', function(e) {
